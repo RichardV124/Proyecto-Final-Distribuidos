@@ -1,5 +1,5 @@
-# Inmobiliaria-MarElsa
-Proyecto Ingeniería III &amp; DEE
+# Inmobiliaria
+Proyecto final de Sitemas distrubuidos
 
 Installation
 *for newbies : Clone or download zip to your machine then hit this :
