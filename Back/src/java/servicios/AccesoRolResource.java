@@ -21,14 +21,12 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.core.MediaType;
 import modelo.Acceso;
 import modelo.AccesoRol;
-import modelo.Login;
-import modelo.Persona;
 import modelo.Rol;
 
 /**
  * REST Web Service
  *
- * @author 415-pc-profe
+ * @author Vanegas
  */
 @Path("rol-accesos")
 public class AccesoRolResource {

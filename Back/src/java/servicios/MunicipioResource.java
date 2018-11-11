@@ -10,6 +10,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.Produces;
@@ -17,16 +19,15 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.core.MediaType;
-import modelo.Login;
-import modelo.Persona;
+import modelo.Municipio;
 
 /**
  * REST Web Service
  *
- * @author 415-pc-profe
+ * @author Vanegas
  */
-@Path("login")
-public class LoginResource {
+@Path("municipio")
+public class MunicipioResource {
 
     @Context
     private UriInfo context;
@@ -36,39 +37,34 @@ public class LoginResource {
     /**
      * Constructor
      */
-    public LoginResource() throws SQLException{
+    public MunicipioResource() throws SQLException{
         con = Conexion.getConexion();
     }
     
     /**
-     * Metodo que inicia sesion en la aplicacion
-     * @param username, usuario con el que se iniciara sesion
-     * @param contrasenia
+     * Metodo que lista todos los municipios
+     * @return
      */
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("login/{username}/{contrasenia}")
-    public Login login(@PathParam("username") String username,
-            @PathParam("contrasenia") String contrasenia) {
+    @Path("list/{id}")
+    public List<Municipio> listarDepartamentos(@PathParam("id") int id) {
           try {
-            Login login = new Login();
+            List<Municipio> listaMunicipios = new ArrayList<Municipio>();
             //Llamo la conexion y le envio la consulta a la base de datos
             Connection con = Conexion.getConexion();
-            String sql = "SELECT l.username,l.contrasenia,l.persona_cedula"
-                    + " FROM login l WHERE username = ? and contrasenia = ? and activo = 1 ;";
+            String sql = "SELECT m.id,m.nombre FROM municipio m WHERE m.departamento_id = ?";
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setString(1, username);
-            ps.setString(2, contrasenia);
+            ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                login.setUsername(rs.getString(1));
-                login.setContrasenia(rs.getString(2));
-                Persona p = new Persona();
-                p.setCedula(rs.getString(3));
-                login.setPersona_cedula(p);
+                Municipio muni = new Municipio();
+                muni.setId(rs.getInt(1));
+                muni.setNombre(rs.getString(2));
+                listaMunicipios.add(muni);
             }
             con.close();
-            return login;
+            return listaMunicipios;
             //return buildResponse(listaPersonas);
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -77,31 +73,29 @@ public class LoginResource {
     }
     
     /**
-     * Metodo que busca un login por una persona
-     * @param persona, cedula de la persona por la cual se buscara el login
+     * Metodo que busca un municipio por un id
+     * @param id, id por el cual se buscara el municipio
+     * @return el municipio si lo encuentra, en caso contrario null
      */
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("usuario-by-persona/{persona}")
-    public Login loginByPersona(@PathParam("persona") String persona) {
+    @Path("search/{id}")
+    public Municipio buscarMunicipio(@PathParam("id") int id) {
           try {
-            Login login = new Login();
+            Municipio muni = new Municipio();
             //Llamo la conexion y le envio la consulta a la base de datos
             Connection con = Conexion.getConexion();
-            String sql = "SELECT * FROM login WHERE persona_cedula = ? ;";
+            String sql = "SELECT m.id,m.nombre FROM municipio m WHERE m.id = ? ;";
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setString(1, persona);
+            ps.setInt(1, id);
             
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                login.setUsername(rs.getString(1));
-                login.setContrasenia(rs.getString(2));
-                Persona p = new Persona();
-                p.setCedula(rs.getString(3));
-                login.setPersona_cedula(p);
+                muni.setId(rs.getInt(1));
+                muni.setNombre(rs.getString(2));
             }
             con.close();
-            return login;
+            return muni;
             //return buildResponse(listaPersonas);
         } catch (SQLException ex) {
             ex.printStackTrace();

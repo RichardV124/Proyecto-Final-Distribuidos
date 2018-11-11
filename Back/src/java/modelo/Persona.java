@@ -22,7 +22,7 @@ public class Persona implements Serializable {
     private int telefono;
     private String correo;
     private Rol rol_id;
-    private Municipio municipio;
+    private Municipio municipio_id;
     private int genero;
     private int activo;
 
@@ -93,12 +93,12 @@ public class Persona implements Serializable {
         this.rol_id = rol_id;
     }
 
-    public Municipio getMunicipio() {
-        return municipio;
+    public Municipio getMunicipio_id() {
+        return municipio_id;
     }
 
-    public void setMunicipio(Municipio municipio) {
-        this.municipio = municipio;
+    public void setMunicipio_id(Municipio municipio_id) {
+        this.municipio_id = municipio_id;
     }
 
     public int getGenero() {

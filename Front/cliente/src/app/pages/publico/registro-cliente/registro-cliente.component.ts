@@ -89,13 +89,16 @@ export class RegistroClienteComponent implements OnInit {
               this.selectedPersona.activo = 1;
               this.selectedPersona.municipio_id = this.selectedMunicipio;
               this.selectedLogin.persona_cedula = this.selectedPersona;
+              console.log(this.selectedLogin);
               this.clienteService.registrarPersona(this.selectedLogin)
               .subscribe(res => {
                 this.respuesta = JSON.parse(JSON.stringify(res));
                 console.log(this.respuesta.msj + ' SAVE');
                 console.log(this.selectedPersona.nombre);
+                if (this.respuesta.id === 505) {
                 this.selectedPersona = new Persona();
                 this.selectedLogin = new Login();
+                }
                 // variable de verificacion
                 this.registrado = true;
                 if (this.respuesta.id === 404) {
@@ -110,6 +113,8 @@ export class RegistroClienteComponent implements OnInit {
   listarDepartamentos() {
     this.municipioService.listarDepartamentos().
     subscribe(departamento => {
+      console.log(departamento);
+      
       this.listaDepartamentos = departamento;
       if (this.listaDepartamentos === undefined) {
           this.listandoDepartamentos = false;

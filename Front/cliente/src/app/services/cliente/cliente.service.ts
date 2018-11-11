@@ -12,7 +12,7 @@ export class ClienteService {
   /**
    * Ruta en la que se encuentran los servicios
    */
-  domain = 'http://localhost:4300';
+  domain = 'http://localhost:8080/Back/webresources/';
 
   constructor(private http: HttpClient) { }
 

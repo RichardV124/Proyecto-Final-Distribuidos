@@ -96,6 +96,7 @@ export class LoginService {
    * @param usuario el usuario al que vamos a obtener la persona
    */
   getUsuarioPersona (usuario: Login) {
+    
     return this.http.get<any>(this.domain + 'persona/search/' + usuario.persona_cedula.cedula)
     .map(res => {
             return res;

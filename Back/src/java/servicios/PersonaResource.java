@@ -79,7 +79,7 @@ public class PersonaResource {
                 persona.setRol_id(rol);
                 Municipio mun = new Municipio();
                 mun.setId(rs.getInt(9));
-                persona.setMunicipio(mun);
+                persona.setMunicipio_id(mun);
                 persona.setGenero(rs.getInt(10));
                 persona.setActivo(rs.getInt(11));
                

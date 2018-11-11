@@ -9,7 +9,7 @@ export class MunicipioService {
    /**
    * Ruta en la que se encuentran los servicios
    */
-  domain = 'http://localhost:4300';
+  domain = 'http://localhost:8080/Back/webresources/';
 
   constructor(private http: HttpClient) { }
 
@@ -19,7 +19,7 @@ export class MunicipioService {
   listarMunicipios(id: number) {
   return this.http.get<any>(`${this.domain}/municipio/list/${id}`)
   .map(res => {
-    return res.data;
+    return res;
   });
 }
 
@@ -29,7 +29,7 @@ export class MunicipioService {
 listarDepartamentos() {
   return this.http.get<any>(`${this.domain}/departamento/list`)
   .map(res => {
-    return res.data;
+    return res;
   });
 }
 
@@ -40,7 +40,7 @@ listarDepartamentos() {
   buscarMunicipio(id: number) {
     return this.http.get<any>(`${this.domain}/municipio/search/${id}`)
     .map(res => {
-      return res.data;
+      return res;
   });
 
   }
@@ -52,7 +52,7 @@ listarDepartamentos() {
   buscarDepartamento(id: number) {
     return this.http.get<any>(`${this.domain}/departamento/search/${id}`)
     .map(res => {
-      return res.data;
+      return res;
   });
 
   }

@@ -41,7 +41,7 @@ export class LoginComponent implements OnInit {
    console.log(this.usuario);
    // enviamos al servicio
    this.servicios.login(this.usuario).subscribe(rta => {
-     if (rta == null) {
+     if (JSON.stringify(rta) === '{}') {
        this.msj = 'A ingresado datos incorrectos';
        this.show = 1;
      } else {
